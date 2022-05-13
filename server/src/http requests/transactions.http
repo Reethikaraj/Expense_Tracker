@@ -1,0 +1,14 @@
+POST  http://localhost:5000/api/transactions
+Content-Type: application/json
+
+{
+    "name": "SIP",
+    "type": "Investment",
+    "amount": 500
+}
+
+###
+GET  http://localhost:5000/api/transactions
+
+###
+GET  http://localhost:5000/api/labels
