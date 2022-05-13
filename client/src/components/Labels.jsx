@@ -1,36 +1,18 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { apiSlice } from '../redux/apiSlice';
 
 const Labels = () => {
-	const data = [
-		{
-			type: 'Income',
-			percent: 10,
-			color: '#f9c74f',
-		},
-		{
-			type: 'Expense',
-			percent: 20,
-			color: '#EB5353',
-		},
-		{
-			type: 'Investment',
-			percent: 10,
-			color: '#36AE7C',
-		},
-		{
-			type: 'Savings',
-			percent: 45,
-			color: '#187498',
-		},
-	];
-	return (
-		<>
-			{data.map((v, i) => (
-				<LabelComponent key={i} data={v} />
-			))}
-		</>
-	);
+	const { data, isFetching, isSuccess, isError } = apiSlice.useGetLabelsQuery();
+	let Transactions;
+	if (isFetching) {
+		Transactions = <div>Fetching</div>;
+	} else if (isSuccess) {
+		Transactions = data?.map((v, i) => <LabelComponent key={i} data={v} />);
+	} else if (isError) {
+		Transactions = <div>Error</div>;
+	}
+	return <>{Transactions}</>;
 };
 
 function LabelComponent({ data }) {
