@@ -4,8 +4,7 @@ import Category from '../models/categories_model.js'
 export const newCategory = async (req, res, next) => {
   const category = await Category.create({
     type: 'Investment',
-    color: '#FCBE44',
-    date: new Date(),
+    color: '#36AE7C',
   })
   await category.save(function (err) {
     if (!err) return res.json(category)
@@ -18,8 +17,7 @@ export const newCategory = async (req, res, next) => {
 // Get all categories
 export const allCategories = async (req, res, next) => {
   let data = await Category.find({})
-
-  let filter = await data.map((v) =>
+  let filter = data.map((v) =>
     Object.assign({}, { type: v.type, color: v.color })
   )
   return res.json(filter)

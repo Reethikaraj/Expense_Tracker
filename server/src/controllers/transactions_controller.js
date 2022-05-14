@@ -1,5 +1,5 @@
 import Transaction from '../models/transactions_model.js'
-import Category from '../models/categories_model.js'
+import Categories from '../models/categories_model.js'
 
 // transaction category
 export const newTransaction = async (req, res, next) => {
@@ -40,14 +40,15 @@ export const getLabels = async (req, res, next) => {
   Transaction.aggregate([
     {
       $lookup: {
-        from: Category.collection.name,
+        from: 'categories',
         localField: 'type',
         foreignField: 'type',
-        as: 'Category_info',
+        as: 'categories_info',
       },
     },
     {
-      $unwind: '$Category_info',
+      // $unwind: { path: '$categories_info', preserveNullAndEmptyArrays: true },
+      $unwind: '$categories_info',
     },
   ])
     .then((result) => {
@@ -59,13 +60,13 @@ export const getLabels = async (req, res, next) => {
             name: v.name,
             type: v.type,
             amount: v.amount,
-            color: v.Category_info['color'],
+            color: v.categories_info && v.categories_info['color'],
           }
         )
       )
       res.json(data)
     })
     .catch((error) => {
-      res.status(400).json('Lookup Collection Error')
+      res.status(400).json(`Lookup Collection Error ${error}`)
     })
 }

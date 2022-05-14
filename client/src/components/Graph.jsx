@@ -2,18 +2,19 @@ import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart, ArcElement } from 'chart.js';
 import Labels from './Labels';
+import { apiSlice } from '../redux/apiSlice';
 
 Chart.register(ArcElement);
 const Graph = () => {
-	// 	const { data, isFetching , isSuccess, isError } = api.useGetLabelsQuery()
-	//   let graphData;
-	// if(isFetching){
-	//     graphData = <div>Fetching</div>;
-	//   }else if(isSuccess){
-	//     graphData = <Doughnut {...chart_Data(data)}></Doughnut>;
-	//   }else if(isError){
-	//     graphData = <div>Error</div>
-	//   }
+	// const { data, isFetching, isSuccess, isError } = apiSlice.useGetLabelsQuery();
+	// let graphData;
+	// if (isFetching) {
+	// 	graphData = <div>Fetching</div>;
+	// } else if (isSuccess) {
+	// 	graphData = <Doughnut {...config} />;
+	// } else if (isError) {
+	// 	graphData = <div>Error</div>;
+	// }
 	const config = {
 		data: {
 			datasets: [
@@ -42,7 +43,6 @@ const Graph = () => {
 				</div>
 
 				<div className='flex flex-col py-10 gap-4'>
-					{/* Labels */}
 					<Labels />
 				</div>
 			</div>

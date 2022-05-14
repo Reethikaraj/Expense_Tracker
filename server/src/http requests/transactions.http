@@ -3,8 +3,8 @@ Content-Type: application/json
 
 {
     "name": "SIP",
-    "type": "Investment",
-    "amount": 500
+    "type": "Investmente",
+    "amount": 10000
 }
 
 ###
