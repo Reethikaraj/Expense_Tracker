@@ -12,7 +12,7 @@ app.use(cors())
 
 // ErrorHandling for Uncaught exceptions (like undefined eg.console.log(abc))
 process.on('uncaughtException', (err) => {
-  console.log(`Error: ${err.message}`)
+  console.log(`Error: ${err}`)
   console.log('Shutting down the server due to UNCAUGHT EXCEPTIONS')
   process.exit(1)
 })

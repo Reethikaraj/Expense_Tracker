@@ -1,18 +1,23 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import List from './List';
+import { apiSlice } from '../redux/apiSlice';
 
 const Form = () => {
 	const { register, handleSubmit, resetField } = useForm();
-	const onSubmit = (data) => {
-		console.log(data);
+	const [newTransaction] = apiSlice.useNewTransactionMutation();
+	const onSubmit = async (data) => {
+		if (!data) return {};
+		await newTransaction(data).unwrap();
+		resetField('name');
+		resetField('amount');
 	};
 	return (
 		<div className='form max-w-sm mx-auto w-96'>
 			<h1 className='font-bold pb-4 text-xl'>Transaction</h1>
 			<form id='form' onSubmit={handleSubmit(onSubmit)}>
 				<div className='grid gap-4'>
-					<select className='form-input' {...register('transaction_type')}>
+					<select className='form-input' {...register('type')}>
 						<option value='Income'>Income</option>
 						<option value='Expense'>Expense</option>
 						<option value='Savings'>Savings</option>
@@ -20,7 +25,7 @@ const Form = () => {
 					</select>
 					<div className='input-group'>
 						<input
-							{...register('transaction_name')}
+							{...register('name')}
 							type='text'
 							placeholder='Salary, Rent, SIP'
 							className='form-input'
@@ -31,7 +36,7 @@ const Form = () => {
 							type='text'
 							placeholder='Amount'
 							className='form-input'
-							{...register('transaction_amount')}
+							{...register('amount')}
 						/>
 					</div>
 					<div className='submit-btn'>
@@ -41,7 +46,6 @@ const Form = () => {
 					</div>
 				</div>
 			</form>
-
 			<List />
 		</div>
 	);

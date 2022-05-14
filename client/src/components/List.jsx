@@ -20,6 +20,8 @@ const List = () => {
 	} else if (isError) {
 		Transactions = <div>Error</div>;
 	}
+	// console.log(Transactions);
+	console.log('data', data);
 	return (
 		<div className='flex flex-col py-6 gap-3'>
 			<h1 className='py-4 font-bold text-xl'>History</h1>
@@ -30,6 +32,7 @@ const List = () => {
 
 function Transaction({ category, handler }) {
 	if (!category) return null;
+	console.log('category', category);
 	return (
 		<div
 			className='item flex justify-center bg-gray-50 py-2 rounded-r'
