@@ -2,11 +2,12 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import List from './List';
 import { apiSlice } from '../redux/apiSlice';
+import { Labels } from '../types';
 
 const Form = () => {
 	const { register, handleSubmit, resetField } = useForm();
 	const [newTransaction] = apiSlice.useNewTransactionMutation();
-	const onSubmit = async (data) => {
+	const onSubmit = async (data: any) => {
 		if (!data) return {};
 		await newTransaction(data).unwrap();
 		resetField('name');
@@ -18,7 +19,6 @@ const Form = () => {
 			<form id='form' onSubmit={handleSubmit(onSubmit)}>
 				<div className='grid gap-4'>
 					<select className='form-input' {...register('type')}>
-						<option value='Income'>Income</option>
 						<option value='Expense'>Expense</option>
 						<option value='Savings'>Savings</option>
 						<option value='Investment'>Investment</option>

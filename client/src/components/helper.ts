@@ -1,10 +1,10 @@
 import _ from 'lodash';
 
-export function getSum(transaction, type) {
-	let sum = _(transaction)
+export function getSum(transaction: any, type?: string) {
+	const sum = _(transaction)
 		.groupBy('type')
 		.map((objs, key) => {
-			if (!type) return _.sumBy(objs, 'amount');
+			if (!type) return _.sumBy(objs, 'amount'); // [300, 350, 500]
 			return {
 				type: key,
 				color: objs[0].color,
@@ -15,19 +15,19 @@ export function getSum(transaction, type) {
 	return sum;
 }
 
-export function getLabels(transaction) {
-	let amountSum = getSum(transaction, 'type');
-	let Total = _.sum(getSum(transaction));
-	let percent = _(amountSum)
-		.map((objs) => _.assign(objs, { percent: (100 * objs.total) / Total }))
+export function getLabels(transaction: any, type?: string) {
+	const amountSum = getSum(transaction, 'type');
+	const Total = _.sum(getSum(transaction));
+	const percent = _(amountSum)
+		.map((objs: any) => _.assign(objs, { percent: (100 * objs.total) / Total }))
 		.value();
 	return percent;
 }
 
-export function chart_Data(transaction, custom) {
+export function chart_Data(transaction: any, custom?: any) {
 	let bg = _.map(transaction, (a) => a.color);
 	bg = _.uniq(bg);
-	let dataValue = getSum(transaction);
+	const dataValue = getSum(transaction);
 	const config = {
 		data: {
 			datasets: [
@@ -46,6 +46,6 @@ export function chart_Data(transaction, custom) {
 	};
 	return custom ?? config;
 }
-export function getTotal(transaction) {
+export function getTotal(transaction: any) {
 	return _.sum(getSum(transaction));
 }

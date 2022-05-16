@@ -2,8 +2,8 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
-import categoryRouter from './src/routes/categories_routes.js'
-import transactionRouter from './src/routes/transactions_routes.js'
+import categoryRouter from './routes/categories_routes.js'
+import transactionRouter from './routes/transactions_routes.js'
 
 dotenv.config()
 const app = express()
@@ -18,13 +18,9 @@ process.on('uncaughtException', (err) => {
 })
 
 // Connecting mongoDB
-const uri = process.env.MONGODB_URI
+const uri: string = process.env.MONGODB_URI!
 mongoose
-  .connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    // serverApi: ServerApiVersion.v1,
-  })
+  .connect(uri)
   .then(() => {
     console.log('Connection succesful')
     const server = app.listen(process.env.PORT || 5000, () =>

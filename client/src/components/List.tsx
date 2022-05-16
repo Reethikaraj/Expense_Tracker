@@ -1,20 +1,21 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import * as React from 'react';
 import 'boxicons';
 import { apiSlice } from '../redux/apiSlice';
+import { MdDeleteForever } from 'react-icons/md';
 
 const List = () => {
 	const { data, isFetching, isSuccess, isError } = apiSlice.useGetLabelsQuery();
 	const [deleteTransaction] = apiSlice.useDeleteTransactionMutation();
 	let Transactions;
-	const handlerClick = (e) => {
+	const handlerClick = (e: any) => {
 		if (!e.target.dataset.id) return 0;
 		deleteTransaction({ _id: e.target.dataset.id });
 	};
 	if (isFetching) {
 		Transactions = <div>Fetching</div>;
 	} else if (isSuccess) {
-		Transactions = data.map((v, i) => (
+		Transactions = data.map((v: any, i: any) => (
 			<Transaction key={i} category={v} handler={handlerClick} />
 		));
 	} else if (isError) {
@@ -30,7 +31,7 @@ const List = () => {
 	);
 };
 
-function Transaction({ category, handler }) {
+function Transaction({ category, handler }: any) {
 	if (!category) return null;
 	// console.log('category', category);
 	return (
@@ -39,11 +40,11 @@ function Transaction({ category, handler }) {
 			style={{ borderRight: `8px solid ${category.color ?? '#e5e5e5'}` }}
 		>
 			<button className='px-3' onClick={handler}>
-				<box-icon
+				<MdDeleteForever
 					data-id={category._id ?? ''}
 					color={category.color ?? '#e5e5e5'}
 					name='trash'
-				></box-icon>
+				/>
 			</button>
 			<span className='block w-full'>{category.name ?? ''}</span>
 		</div>

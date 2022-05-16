@@ -4,14 +4,16 @@ const baseURI = 'http://localhost:5000';
 
 export const apiSlice = createApi({
 	baseQuery: fetchBaseQuery({ baseUrl: baseURI }),
+	tagTypes: ['Category', 'Transaction'],
+
 	endpoints: (builder) => ({
 		// get categories
-		getCategories: builder.query({
+		getCategories: builder.query<any, void>({
 			query: () => '/api/categories',
 			providesTags: ['Category'],
 		}),
 		// get labels
-		getLabels: builder.query({
+		getLabels: builder.query<any, void>({
 			query: () => '/api/labels',
 			providesTags: ['Transaction'],
 		}),

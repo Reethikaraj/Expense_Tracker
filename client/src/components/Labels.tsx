@@ -18,7 +18,7 @@ const Labels = () => {
 	return <>{Transactions}</>;
 };
 
-function LabelComponent({ data }) {
+function LabelComponent({ data }: any) {
 	if (!data) return <></>;
 	// console.log('data', data);
 	return (

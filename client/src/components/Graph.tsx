@@ -8,6 +8,7 @@ import { chart_Data, getTotal } from './helper';
 Chart.register(ArcElement);
 const Graph = () => {
 	const { data, isFetching, isSuccess, isError } = apiSlice.useGetLabelsQuery();
+	console.log('data', data);
 	let graphData;
 	if (isFetching) {
 		graphData = <div>Fetching</div>;
