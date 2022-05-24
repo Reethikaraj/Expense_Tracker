@@ -1,8 +1,12 @@
 import Transaction from '../models/transactions_model.js'
-import Categories from '../models/categories_model.js'
+import { Request, Response, NextFunction } from 'express'
 
 // transaction category
-export const newTransaction = async (req, res, next) => {
+export const newTransaction = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   if (!req.body) return res.status(400).json('Please enter data')
   let { name, type, amount } = req.body
   const transaction = await Transaction.create({
@@ -19,15 +23,23 @@ export const newTransaction = async (req, res, next) => {
   })
 }
 
-export const getAllTransactions = async (req, res, next) => {
+export const getAllTransactions = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   if (!req.body) return res.status(400).json('Please enter data')
   let data = await Transaction.find({})
   return res.json(data)
 }
 
-export const deleteTransaction = async (req, res, next) => {
+export const deleteTransaction = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   if (!req.body) res.status(400).json({ message: 'Please enter data' })
-  await Transaction.deleteOne(req.body, function (err) {
+  await Transaction.deleteOne(req.body, function (err: any) {
     if (!err) res.json('Transaction Deleted successfully!')
   })
     .clone()
@@ -36,7 +48,11 @@ export const deleteTransaction = async (req, res, next) => {
     })
 }
 
-export const getLabels = async (req, res, next) => {
+export const getLabels = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   Transaction.aggregate([
     {
       $lookup: {

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { apiSlice } from '../redux/apiSlice';
+import { getLabels } from './helper';
 
 const Labels = () => {
 	const { data, isFetching, isSuccess, isError } = apiSlice.useGetLabelsQuery();
@@ -8,15 +9,18 @@ const Labels = () => {
 	if (isFetching) {
 		Transactions = <div>Fetching</div>;
 	} else if (isSuccess) {
-		Transactions = data?.map((v, i) => <LabelComponent key={i} data={v} />);
+		Transactions = getLabels(data, 'type').map((v, i) => (
+			<LabelComponent key={i} data={v} />
+		));
 	} else if (isError) {
 		Transactions = <div>Error</div>;
 	}
 	return <>{Transactions}</>;
 };
 
-function LabelComponent({ data }) {
+function LabelComponent({ data }: any) {
 	if (!data) return <></>;
+	// console.log('data', data);
 	return (
 		<div className='labels flex justify-between'>
 			<div className='flex gap-2'>
@@ -26,7 +30,7 @@ function LabelComponent({ data }) {
 				></div>
 				<h3 className='text-md'>{data.type ?? ''}</h3>
 			</div>
-			<h3 className='font-bold'>{data.percent ?? 0}%</h3>
+			<h3 className='font-bold'>{Math.round(data.percent) ?? 0}%</h3>
 		</div>
 	);
 }
