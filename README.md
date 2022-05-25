@@ -12,7 +12,7 @@ Backend:
 💊 Express, Node.js, MongoDB, Mongoose, TypeScript
 ## Demo
 
-https://628ce6afc8598d200c9eca88--expensetracker-reethika.netlify.app/
+https://expensetracker-reethika.netlify.app/
 
 
 
